@@ -1,0 +1,17 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+
+.left{
+  height: 100vh;
+}
+
+@media screen and (min-width:576px){
+
+}
+
+@media screen and (min-width:768px){
+
+}
