@@ -1,32 +1,43 @@
+//***********************************
+//Testing my script if it is linked
+//***********************************
+
 console.log('js');
 
-//definition of Functions
+$(document).ready(function(){
+
+  $('#result').hide();
+  $('#everythingElse').show();
+
+  // Definition of function with dummy arguments
 function calculateAccomodationCost(accomodation, meal){
   var myTotal = accomodation + meal;
   var withGST = myTotal+ (12 /100*myTotal);
   return (withGST); //to return the value to the place where this function was called
 }
+// $('#calculate').click(function() {
+// //calling the Functions with dummy arguments
+//
+// var stay = parseInt($('#accomodation').val());
+// var food = parseInt($('#meal').val());
+// console.log(stay, food);
+//
+// var totalCost = calculateAccomodationCost (stay, food); //real arguments
+// console.log('$', totalCost);
+//
+// });
 
 
-$('#calculate').click(function() {
 
-
-
-//calling the Functions with dummy arguments
-
-var stay = parseInt($('#accomodation').val());
-var food = parseInt($('#meal').val());
-console.log(stay, food);
-
-var totalCost = calculateAccomodationCost (stay, food); //real arguments
-console.log('$', totalCost);
-
-});
 
 // ind the total, average and grade of student
-var marks = [];
+
 $('#grade').click(function(){
+
+      //declaring marks array and also empties wheneve button is clicked
   var marks = [];
+
+// receiving input from the html form and storing in js variables
   var module1 = parseInt($('#module1').val());
   var module2 = parseInt($('#module2').val());
   var module3 = parseInt($('#module3').val());
@@ -34,32 +45,36 @@ $('#grade').click(function(){
 
   // validation to check if the marks entered by the user is within 0-100
   if ((module1 >= 0)  && (module1 <=100)) {
-    marks.push(module1);
-
-  }
-  if ((module2 >= 0)  && (module2 <=100)) {
-    marks.push(module2);
-
-  }
-  if ((module3 >= 0)  && (module3 <=100)) {
-    marks.push(module3);
-
-  }
-  if ((module4 >= 0)  && (module4 <=100)) {
-    marks.push(module4);
-
-  }
-
-  if (marks.length < 4){
-
-      alert('Please enter marks between 0 and 100');
-
-
+    marks.push(module1); //adds to the marks array
   } else {
-      console.log(marks);
+    $('#module1').val(''); // clears the input box
+  }
 
+  if ((module2 >= 0)  && (module2 <=100)) {
+    marks.push(module2); //adds to the marks array
+  } else {
+    $('#module2').val(''); // clears the input box
+  }
 
+  if ((module3 >= 0)  && (module3 <=100)) {
+    marks.push(module3); //adds to the marks array
+  } else {
+    $('#module3').val(''); // clears the input box
+  }
 
+  if ((module4 >= 0)  && (module4 <=100)) {
+    marks.push(module4); //adds to the marks array
+  } else {
+    $('#module4').val(''); // clears the input box
+  }
+
+// if not all marks are in the array, notifies the user
+  if (marks.length < 4){
+    alert ('Please enter marks between 0 and 100');
+  } else {
+    console.log(marks);
+    $('#result').show(); // result container is hidden otherwise
+    $('#everythingElse').hide();
   // finding total marks using function
   var totalMarks = totalMarksCalculation(module1, module2, module3, module4);
   console.log('total = ' + totalMarks);
@@ -75,9 +90,23 @@ $('#grade').click(function(){
   //finding the highest mark among the modules
   var highestMark = findHighest(marks);
   console.log('highestMark = ' + highestMark);
-}
-});
 
+    // displaying results in the result container (modal)
+    $('#result').append('Total = ' + totalMarks + '<br>');
+    $('#result').append('Average = ' + averageMarks + '<br');
+    $('#result').append('Highest Mark = ' + highestMark[0] + '<br');
+    $('#result').append('Highest in Module' + highestMark[1] + '<br>');
+    $('#result').append('Grade = ' + grade + '<br>');
+
+}; //end of else
+
+}); //end of grade function
+
+$('#closeBtn').click(function(){
+  $('#result').hide();
+  $('#everythingElse').show();
+});
+}); //end of document.ready
 
 // function definition to add up all the marks
 function totalMarksCalculation(mark1, mark2, mark3, mark4){
@@ -118,6 +147,8 @@ function findHighest(scores){
   console.log(highResult);
   return (highResult);
 }
+  }
+
 
 //1.feedback to users if mark is not in the range
 //2. what if highest mark is in more than 1 module?
